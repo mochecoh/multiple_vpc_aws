@@ -1,6 +1,7 @@
 ####################### add to terraform nat #####################
 
-- availability
+- high availability
 - change security group of nat to make max secure
 - for_each?
+- route 53
 
