@@ -1,0 +1,7 @@
+####################### add to terraform nat #####################
+
+- private key
+- remote exec iptable
+- add check dest false
+- change security group of nat
+- change route
