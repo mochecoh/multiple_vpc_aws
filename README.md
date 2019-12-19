@@ -16,4 +16,4 @@ The ip are private ip, the only way to ssh to the instance is to use the nat por
  2. Each Nat instance will run the portforwarding.sh file which add iptables rules to portforwarding.
  3. For the second nat, main.tf run a script to redirect 9998 port to the 9999 port of the first nat.
 
-![enter image description here](https://i.ibb.co/B4Qzd13/Screenshot-from-2019-12-19-15-00-35.png)
+![enter image description here](https://raw.githubusercontent.com/mochecoh/multiple_vpc_aws/blob/master/aws_architecture.png)
