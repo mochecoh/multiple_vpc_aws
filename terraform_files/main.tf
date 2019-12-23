@@ -1,10 +1,8 @@
-provider "aws" {
-  region = "us-east-2"
-}
-
 module "vpc_cluster_1" {
   source = "./modules/vpc_cluster"
 
+  region_aws = "us-east-2"
+  instance_ami = "ami-05c1fa8df71875112"
   environment_tag = "first"
   public_key_name = "PublicKey_2"
 }
@@ -12,6 +10,8 @@ module "vpc_cluster_1" {
 module "vpc_cluster_2" {
   source = "./modules/vpc_cluster"
 
+  instance_ami = "ami-0dd655843c87b6930"
+  region_aws = "us-west-1"
   environment_tag = "second"
   public_key_name = "PublicKey_1"
 }

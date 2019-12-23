@@ -29,7 +29,7 @@ variable "public_key_name" {
 }
 variable "instance_ami" {
   description = "AMI for aws EC2 instance"
-  default = "ami-05c1fa8df71875112"
+  type = string
 }
 variable "instance_type" {
   description = "type for aws EC2 instance"
@@ -37,5 +37,9 @@ variable "instance_type" {
 }
 variable "environment_tag" {
   description = "Environment tag"
+  type = string
+}
+variable "region_aws" {
+  description = "region of the module launch"
   type = string
 }

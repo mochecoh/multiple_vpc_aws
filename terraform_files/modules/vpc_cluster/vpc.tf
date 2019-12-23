@@ -1,3 +1,7 @@
+provider "aws" {
+  region = "${var.region_aws}"
+}
+
 #VPC
 resource "aws_vpc" "vpc_aws" {
     cidr_block       = "${var.cidr_vpc}"
