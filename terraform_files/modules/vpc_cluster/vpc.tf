@@ -24,6 +24,17 @@ resource "aws_subnet" "subnet-private" {
     }
 }
 
+resource "aws_subnet" "subnet-private-test" {
+  count                   = "${length(var.subnets)}"
+  
+  vpc_id = "${aws_vpc.vpc_aws.id}"
+  cidr_block              = "${element(values(var.subnets), count.index)}"
+  availability_zone       = "${element(keys(var.subnets), count.index)}"
+  tags = {
+        Name = "${var.environment_tag}"
+    }
+}
+
 #Public Subnets
 resource "aws_subnet" "subnet-public" {
     vpc_id = "${aws_vpc.vpc_aws.id}"
@@ -69,5 +80,10 @@ resource "aws_route_table_association" "subnet-public" {
 }
 resource "aws_route_table_association" "subnet-private" {
   subnet_id      = "${aws_subnet.subnet-private.id}"
+  route_table_id = "${aws_route_table.private_route.id}"
+}
+resource "aws_route_table_association" "subnet-private-test" {
+  count          = "${length(var.subnets)}"
+  subnet_id      = "${element(aws_subnet.subnet-private-test.*.id, count.index)}"
   route_table_id = "${aws_route_table.private_route.id}"
 }

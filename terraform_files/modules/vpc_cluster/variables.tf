@@ -43,3 +43,7 @@ variable "region_aws" {
   description = "region of the module launch"
   type = string
 }
+variable "subnets" {
+  description = "A map of availability zones to CIDR blocks, which will be set up as subnets."
+  type = "map"
+}

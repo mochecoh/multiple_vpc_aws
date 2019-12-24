@@ -14,6 +14,8 @@
 - voir pour les ips + changement d'ip
 - nat avec private ip? Ou pas de nat et que load balance
 https://medium.com/becloudy/architecting-for-reliability-part-3-high-availability-architectures-8dfd0f87d25e
+https://dwmkerr.com/dynamic-and-configurable-availability-zones-in-terraform/
+https://github.com/dwmkerr/terraform-aws-vpc-example/blob/master/03-web-servers.tf
 
 ####################### security ########################
 
