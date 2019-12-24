@@ -2,6 +2,24 @@
 
 - high availability
 - change security group of nat to make max secure
-- for_each?
 - route 53
+- tester un for_each?
+
+####################### high availability ########################
+
+- auto scaling group for ec2 on two private subnets
+- load balancer for the two ec2
+- auto scaling group for nat on two public subnets
+- load balancer for the two nat (like reverse proxy)
+- voir pour les ips + changement d'ip
+- nat avec private ip? Ou pas de nat et que load balance
+https://medium.com/becloudy/architecting-for-reliability-part-3-high-availability-architectures-8dfd0f87d25e
+
+####################### security ########################
+
+- allow just ssh
+- ec2 laisse uniquement des deux nat/  ou un ip
+- le premier nat uniquement du deuxieme
+
+
 

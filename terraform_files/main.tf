@@ -10,12 +10,11 @@ module "vpc_cluster_1" {
 module "vpc_cluster_2" {
   source = "./modules/vpc_cluster"
 
-  instance_ami = "ami-0dd655843c87b6930"
   region_aws = "us-west-1"
+  instance_ami = "ami-0dd655843c87b6930"
   environment_tag = "second"
   public_key_name = "PublicKey_1"
 }
-
 
 resource "null_resource" "cluster" {
   # Changes to any instance of the cluster requires re-provisioning

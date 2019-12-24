@@ -12,7 +12,7 @@ The ip are private ip, the only way to ssh to the instance is to use the nat por
  
 ##  Steps
 
- 1. Terraform main.tf will build 2 times the same module which is the whole infra (VPC, subnet etc...).
+ 1. Terraform main.tf will build 2 times the same module which is the whole infra in two regions (VPC, subnet etc...).
  2. Each Nat instance will run the portforwarding.sh file which add iptables rules to portforwarding.
  3. For the second nat, main.tf run a script to redirect 9998 port to the 9999 port of the first nat.
 
