@@ -21,7 +21,7 @@ resource "aws_instance" "instance_ec2" {
 
 }
 
-/* resource "aws_launch_configuration" "cluster_node" {
+resource "aws_launch_configuration" "cluster_node" {
 
   name_prefix   = "cluster-node-"
   image_id                    = "${var.instance_ami}"
@@ -45,7 +45,7 @@ resource "aws_autoscaling_group" "cluster_node" {
   min_size                    = "2"
   max_size                    = "3"
   desired_capacity            = "2"
-  vpc_zone_identifier         = ["${aws_subnet.public-subnet.*.id}"]
+  vpc_zone_identifier         = "${aws_subnet.subnet-private-test.*.id}"
   launch_configuration        = "${aws_launch_configuration.cluster_node.name}"
   health_check_type           = "ELB"
 
@@ -56,37 +56,37 @@ resource "aws_autoscaling_group" "cluster_node" {
 }
 
 # A load balancer for the cluster.
-resource "aws_alb" "cluster-alb" {
+resource "aws_lb" "cluster-alb" {
     name                = "cluster-alb"
     security_groups     = [
       "${aws_security_group.public_ingress.id}",
       "${aws_security_group.intra_node_communication.id}"
     ]
-    subnets             = ["${aws_subnet.public-subnet.*.id}"]
+    subnets             = "${aws_subnet.subnet-private-test.*.id}"
 }
 
-resource "aws_alb_target_group" "web" {
-  name     = "web"
-  port     = 80
-  protocol = "HTTP"
-  vpc_id   = "${aws_vpc.cluster.id}"
+resource "aws_lb_target_group" "ssh" {
+  name     = "ssh"
+  port     = 22
+  protocol = "TCP"
+  vpc_id   = "${aws_vpc.vpc_aws.id}"
 }
 
-resource "aws_alb_listener" "web_listener" {  
-  load_balancer_arn = "${aws_alb.cluster-alb.arn}"  
-  port              = 80  
-  protocol          = "HTTP"
+resource "aws_lb_listener" "web_listener" {  
+  load_balancer_arn = "${aws_lb.cluster-alb.arn}"  
+  port              = 22
+  protocol          = "TCP"
   
   default_action {    
-    target_group_arn = "${aws_alb_target_group.web.arn}"
+    target_group_arn = "${aws_lb_target_group.ssh.arn}"
     type             = "forward"  
   }
 }
 
 # Create a new ALB Target Group attachment
-resource "aws_autoscaling_attachment" "web-attachment" { */
+resource "aws_autoscaling_attachment" "web-attachment" { 
   autoscaling_group_name = "${aws_autoscaling_group.cluster_node.id}"
-  alb_target_group_arn   = "${aws_alb_target_group.web.arn}"
+  elb   = "${aws_lb_target_group.ssh.arn}"
 }
 
 resource "aws_instance" "instance_nat" {
